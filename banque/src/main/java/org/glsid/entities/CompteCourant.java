@@ -2,6 +2,12 @@ package org.glsid.entities;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("CC")
 public class CompteCourant extends Compte{
 
 	private double decouverte;
