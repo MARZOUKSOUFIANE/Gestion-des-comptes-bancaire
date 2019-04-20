@@ -60,6 +60,8 @@ public class BanqueMetierImpl implements IBanqueMetier {
 	@Override
 	public void verment(String codeCpte1, String codeCpte2, double montant) {
 		// TODO Auto-generated method stub
+		if(codeCpte1.equals(codeCpte2))
+			throw new RuntimeException("impossible d'effectuer le virement sur le meme compte");
 		retirer(codeCpte1, montant);
 		verser(codeCpte2, montant);
 	}

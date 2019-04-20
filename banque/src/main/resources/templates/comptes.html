@@ -74,7 +74,35 @@
 			<div class="card" th:if="${compte}">
 				<div class="card-header">Opérations sur le compte</div>
 				<div class="card-body">
-					
+					<form th:action="@{/saveOperation}" method="post">
+					  <div>
+					   <label><strong>Compte</strong></label>
+					   <input type="hidden" name="codeCompte" th:value="${codeCompte}"/>
+					   <label th:text="${codeCompte}"></label>
+					  </div>
+					  <div>
+					    <input type="radio" name="typeOperation" value="VERS"
+					    checked="checked" onchange="document.getElementById('forVirment').style.display='none'"/>
+					    <label><strong>Versement</strong></label>
+					    <input type="radio" name="typeOperation" value="RETR"
+					    onchange="document.getElementById('forVirment').style.display='none'"/>
+					    <label><strong>Retrait</strong></label>
+					    <input type="radio" name="typeOperation" value="VIR"
+					    onchange="document.getElementById('forVirment').style.display='block'"/>
+					    <label><strong>Virement</strong></label>
+					  </div>
+					  <div id="forVirment" style="display: none;">
+					    <label>Vers</label>
+					    <input type="text" name="codeCompte2"/>
+					  </div>
+					  <div>
+					    <label>Montant</label>
+					    <input type="text" name="montant"/>
+					  </div>
+					  <div class="text-danger" 
+					  th:text="${#httpServletRequest.getParameter('error')}"></div>
+					  <button type="submit" class="btn btn-primary">Save</button>
+					</form>
 				</div>
 			</div>
                 <p></p><p></p>

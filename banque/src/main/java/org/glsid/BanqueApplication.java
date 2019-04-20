@@ -33,6 +33,8 @@ public class BanqueApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+	
+	 /*
 		// TODO Auto-generated method stub
 		Client c1= clientRepository.save(new Client("Hassan", "hassan@gmail.com"));
 		Client c2= clientRepository.save(new Client("Ahmed", "Ahmed@gmail.com"));
@@ -45,5 +47,6 @@ public class BanqueApplication implements CommandLineRunner{
 		Operation op3=operationRepository.save(new Versement(new Date(), 3500, cp2));
 		Operation op4=operationRepository.save(new Retrait(new Date(), 1500, cp2));
 
+  */
 	}
 }
