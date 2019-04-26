@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="template">
 <head>
 <meta charset="utf-8">
@@ -70,7 +71,9 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="col-md-6">
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
 			<div class="card" th:if="${compte}">
 				<div class="card-header">Opérations sur le compte</div>
 				<div class="card-body">
@@ -105,8 +108,9 @@
 					</form>
 				</div>
 			</div>
+			</div>
                 <p></p><p></p>
-			<div class="card" th:if="${compte}">
+			<div class="card" th:if="${compte}" style="margin-bottom: 100px">
 				<div class="card-header" >Listes des opérations</div>
 				<div class="card-body">
 					<table class="table">
@@ -127,6 +131,14 @@
 					</tr>
 				</tbody>
 			</table>
+			<div>
+			        <ul class="nav nav-pills">
+				      <li th:each="page,status:${pages}"><a
+					      th:class="${pageCourante}==${status.index}?'nav-link active':'nav-link'"
+					      th:href="@{/consulterCompte(codeCompte=${codeCompte},page=${status.index})}"
+					      th:text="${status.index}"></a></li>
+			       </ul>
+		         </div>
 				</div>
 			</div>
 		</div>

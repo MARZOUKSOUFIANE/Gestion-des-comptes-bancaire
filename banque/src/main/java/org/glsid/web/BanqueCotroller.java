@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BanqueCotroller {
@@ -23,14 +24,19 @@ public class BanqueCotroller {
     
     
     @RequestMapping("/consulterCompte")
-    public String consulter(Model model,String codeCompte) {
+    public String consulter(Model model,String codeCompte,
+    		@RequestParam(name="page",defaultValue="0") int page,
+    		@RequestParam(name="size",defaultValue="5") int size) {
     	try {
+    		int pageCourante=page;
     		Compte cp=banqueMetier.consulterCompte(codeCompte);
         	model.addAttribute("compte", Hibernate.unproxy( cp ));
         	model.addAttribute("codeCompte", codeCompte);
-        	Page<Operation> pageOperation=banqueMetier.listOperation(codeCompte, 0, 5);
+        	Page<Operation> pageOperation=banqueMetier.listOperation(codeCompte, page, size);
+        	int[]  pages=new int[pageOperation.getTotalPages()];
+        	model.addAttribute("pages", pages);
         	model.addAttribute("listeOperations", pageOperation.getContent());
-        	model.addAttribute("compteType", Hibernate.unproxy( cp ));
+        	model.addAttribute("pageCourante", pageCourante);
 		} catch (Exception e) {
 			model.addAttribute("exception", e.getMessage());
 		}

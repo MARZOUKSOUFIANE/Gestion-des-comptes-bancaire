@@ -23,12 +23,14 @@
 					<li class="nav-item"><a class="nav-link" th:href="@{/comptes}"><strong>Comptes</strong></a></li>
 					<li class="nav-item"><a class="nav-link" th:href="@{/clients}"><strong>Clients</strong></a></li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right" >
+				 <li ><a th:href="@{/login?logout}" style="color: black;"><strong>LogOut</strong></a></li>
+				</ul>
 			</div>
 		</div>
 	</header>
 
 	<section layout:fragment="content"></section>
-
 	<footer class="navbar fixed-bottom navbar-light" style="background-color: #e3f2fd;">
 	<hr/>
 	<div class="container">

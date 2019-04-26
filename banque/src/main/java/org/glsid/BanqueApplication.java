@@ -2,6 +2,7 @@ package org.glsid;
 
 import java.util.Date;
 
+
 import org.glsid.dao.ClientRepository;
 import org.glsid.dao.CompteRepository;
 import org.glsid.dao.OperationRepository;

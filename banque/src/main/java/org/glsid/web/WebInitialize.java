@@ -1,0 +1,15 @@
+package org.glsid.web;
+
+import org.glsid.BanqueApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+public class WebInitialize extends SpringBootServletInitializer{
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		// TODO Auto-generated method stub
+		return builder.sources(BanqueApplication.class);
+	}
+	
+}
