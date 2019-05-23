@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="template">
+
+<head>
+<meta charset="UTF-8" />
+<title>Gestion Comptes</title>
+
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css"
+	href="../static/css/style.min.css" th:href="@{/css/style.min.css}" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+</head>
+<body>
+	<div layout:fragment="content">
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">Consulation des comptes d'un Client</div>
+				<div class="card-body">
+
+					<form th:action="@{/consulterClient}" method="get">
+						<div>
+							<label>Code Client</label> <input type="text" name="codeClient"
+								th:value="${codeClient}" />
+							<button type="submit" class="btn btn-primary">Chercher</button>
+						</div>
+
+					</form>
+					<div class="text-danger" th:if="${e}" th:text="${errorMessage}"></div>
+
+
+				</div>
+			</div>
+
+		</div>
+        <div class="col-md-6" th:if="${client}">
+			<div class="card">
+				<div class="card-header">Informations sur le client</div>
+				<div class="cardl-body">
+
+					<div>
+						<label><strong> Code Client : </strong></label> <label th:text="${client.code}"></label>
+					</div>
+
+
+					<div>
+						<label><strong> Nom : </strong></label> <label
+							th:text="${client.nom}"></label>
+					</div>
+
+					<div>
+						<label><strong> Email : </strong></label> <label th:text="${client.email}"></label>
+					</div>
+
+
+				</div>
+			</div>
+
+	</div>
+
+
+	<div class="row">
+
+		</div> 
+		<div id="fr1" class="col-md-6" >
+			<div class="card" th:if="${client}">
+				<div class="card-header">Ajouter un compte</div>
+				<div class="card-body">
+					<form th:action="@{/ajouterCompte}" method="post">
+
+						<div>
+							 <input type="hidden" name="codeClient"
+								th:value="${codeClient}" />
+						</div>
+
+						<div>
+							<input type="radio" name="typeCompte" value="Courant"
+								checked="checked" /> <label>Courant</label> <input type="radio"
+								name="typeCompte" value="Epargne" /> <label>Epargne</label>
+
+
+
+						</div>
+
+
+						<div>
+							<label> Code Compte : </label> <input type="text"
+								name="codeCompte" />
+
+						</div>
+
+						<div>
+							<label> Solde Compte : </label> <input type="text" name="solde" />
+						</div>
+
+
+						<div>
+							<label> Date Creation : </label> <input type="date"
+								name="dateCreation" />
+						</div>
+					<div>
+
+							<div class="text-danger"
+								th:text="${#httpServletRequest.getParameter('error')}"></div>
+
+
+							<button type="submit" name="montant" class="btn btn-primary">Save</button>
+						</div>
+
+
+					</form>
+
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6" th:if="${client}" style="margin-bottom: 100px">
+			<div class="card">
+				<div class="card-header">Liste des comptes</div>
+				<div class="card-body">
+
+					<table class="table table-striped">
+						<tr>
+							<th><strong>Code</strong></th>
+							<th><strong>Type</strong></th>
+							<th><strong>Solde</strong></th>
+							<th></th>
+						</tr>
+
+
+						<tr th:each="o:${listComptes}">
+							<td th:text="${o.codeCompte}"></td>
+							<td th:text="${o.class.simpleName}"></td>
+							<td th:text="${o.solde}"></td>
+							<td><a  class="btn btn-danger"
+									onClick="return confirm('Do you want to delete this compte?')"
+									th:href="@{/deleteCompte(code=${o.codeCompte},codeClient=${codeClient})}"><i class="fa fa-trash"></i></a>
+						</tr>
+
+
+
+					</table>
+
+					<div class="container">
+						<ul class="nav nav-pills">
+							<li class="nav-item" th:each="p,status:${pages}"><a
+								th:class="${pageCourante}==${status.index}?'nav-link active':'nav-link'"
+								th:href="@{/consulterClient(codeClient=${codeClient},page=${status.index})}"
+								th:text="${status.index}"></a>
+
+							</li>
+						</ul>
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+
+		</div>
+
+	</div>
+</div>
+</body>
+</html>

@@ -3,6 +3,7 @@ package org.glsid.metier;
 import java.util.Date;
 import java.util.Optional;
 
+import org.glsid.dao.ClientRepository;
 import org.glsid.dao.CompteRepository;
 import org.glsid.dao.OperationRepository;
 import org.glsid.entities.Compte;
@@ -10,6 +11,7 @@ import org.glsid.entities.CompteCourant;
 import org.glsid.entities.Operation;
 import org.glsid.entities.Retrait;
 import org.glsid.entities.Versement;
+import org.glsid.entities.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +25,8 @@ public class BanqueMetierImpl implements IBanqueMetier {
 	private CompteRepository compteRepository;
 	@Autowired
 	private OperationRepository operationRepository;
+	@Autowired
+	private ClientRepository clientRepository;
 
 	@Override
 	public Compte consulterCompte(String codeCpte) {
@@ -60,7 +64,7 @@ public class BanqueMetierImpl implements IBanqueMetier {
 	@Override
 	public void verment(String codeCpte1, String codeCpte2, double montant) {
 		// TODO Auto-generated method stub
-		if(codeCpte1.equals(codeCpte2))
+		if (codeCpte1.equals(codeCpte2))
 			throw new RuntimeException("impossible d'effectuer le virement sur le meme compte");
 		retirer(codeCpte1, montant);
 		verser(codeCpte2, montant);
@@ -70,6 +74,24 @@ public class BanqueMetierImpl implements IBanqueMetier {
 	public Page<Operation> listOperation(String codeCpte, int page, int size) {
 		// TODO Auto-generated method stub
 		return operationRepository.listOperation(codeCpte, new PageRequest(page, size));
+	}
+
+	@Override
+	public Page<Client> listClient(int page, int size) {
+		// TODO Auto-generated method stub
+		return clientRepository.findAll(new PageRequest(page, size));
+	}
+
+	@Override
+	public Compte consulterCompteByCodeClient(Long codeClient) {
+		// TODO Auto-generated method stub
+		return compteRepository.consulterCompteByCodeClient(codeClient);
+	}
+
+	@Override
+	public Page<Compte> listCompte(Long codeClient, int page, int size) {
+		// TODO Auto-generated method stub
+		return compteRepository.listCompte(codeClient,new PageRequest(page, size));
 	}
 
 }

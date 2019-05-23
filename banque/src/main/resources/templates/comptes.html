@@ -133,7 +133,7 @@
 			</table>
 			<div>
 			        <ul class="nav nav-pills">
-				      <li th:each="page,status:${pages}"><a
+				      <li th:each="page,status:${pages}"><a class="lien"
 					      th:class="${pageCourante}==${status.index}?'nav-link active':'nav-link'"
 					      th:href="@{/consulterCompte(codeCompte=${codeCompte},page=${status.index})}"
 					      th:text="${status.index}"></a></li>

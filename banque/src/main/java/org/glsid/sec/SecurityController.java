@@ -11,7 +11,7 @@ public class SecurityController {
 		return "login";
 	}
 	
-	@RequestMapping(value="/")
+	@RequestMapping("/")
 	public String home() {
 		return "redirect:/operations";
 	}
