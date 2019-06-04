@@ -6,5 +6,5 @@ ________________________________________________________________________________
  ### Spring Data
  ### Spring MVC
  ### JPA Hibernate
- ### Spring Securité
- ### Thymeleaf
+ ### Spring Securité (JdbcAuthentification)
+ ### Le moteur de template "Thymeleaf"
